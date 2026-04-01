@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>うんこ君バトルフィールド</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="game-card">
+        <header class="game-header">
+          <div>
+            <p class="eyebrow">Kid Co-Op Browser Game</p>
+            <h1>うんこ君バトルフィールド</h1>
+          </div>
+          <button id="music-toggle" class="sound-toggle" type="button" aria-pressed="false">
+            音を入れる
+          </button>
+        </header>
+
+        <section class="hud" aria-label="game status">
+          <div class="hud-chip">
+            <span class="hud-label">WAVE</span>
+            <strong id="wave-label">1</strong>
+          </div>
+          <div class="hud-chip">
+            <span class="hud-label">ENEMY</span>
+            <strong id="enemy-label">0</strong>
+          </div>
+          <div class="hud-chip">
+            <span class="hud-label">POWER</span>
+            <strong id="power-label">ふつう</strong>
+          </div>
+          <div class="hud-chip">
+            <span class="hud-label">MESSAGE</span>
+            <strong id="message-label">タップでスタート</strong>
+          </div>
+        </section>
+
+        <div class="canvas-frame">
+          <canvas id="game" width="1280" height="720" aria-label="うんこ君バトルフィールド"></canvas>
+
+          <section id="overlay" class="overlay is-visible" aria-live="polite">
+            <div class="overlay-card">
+              <p id="overlay-kicker" class="overlay-kicker">ゆるくて激しい 2D バトル</p>
+              <h2 id="overlay-title">うんこ君を操作しよう</h2>
+              <p id="overlay-body">
+                左右に移動、ジャンプ、うんこ投げで敵を倒す。<br />
+                明るい敵は弱く、暗い敵ほどタフで速い。
+              </p>
+              <div class="overlay-actions">
+                <button id="start-button" class="action-button" type="button">スタート</button>
+                <button id="restart-button" class="action-button ghost" type="button">やりなおし</button>
+              </div>
+              <p class="overlay-note">
+                PC: ← → / A D で移動, Space でジャンプ, Enter で投げる
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <section class="touch-controls" aria-label="touch controls">
+          <div class="control-pad move-pad">
+            <button class="control-button" data-control="left" type="button">←</button>
+            <button class="control-button" data-control="right" type="button">→</button>
+          </div>
+          <div class="control-pad action-pad">
+            <button class="control-button jump" data-control="jump" type="button">JUMP</button>
+            <button class="control-button throw" data-control="throw" type="button">うんこ投げ</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./game.js"></script>
+  </body>
+</html>

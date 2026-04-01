@@ -1,0 +1,295 @@
+:root {
+  color-scheme: light;
+  --bg-top: #fff1a5;
+  --bg-bottom: #ffb86c;
+  --card: rgba(255, 251, 234, 0.9);
+  --card-border: rgba(94, 51, 24, 0.15);
+  --text: #371d0d;
+  --text-soft: rgba(55, 29, 13, 0.7);
+  --accent: #ff7d36;
+  --accent-strong: #f14c1a;
+  --ground: #69412a;
+  --hud: rgba(255, 244, 214, 0.85);
+  --hud-border: rgba(80, 39, 19, 0.15);
+  --button: rgba(255, 255, 255, 0.84);
+  --button-shadow: rgba(97, 55, 26, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Hiragino Maru Gothic ProN", "YuGothic", "BIZ UDPGothic", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.75), transparent 22%),
+    radial-gradient(circle at 80% 10%, rgba(255, 209, 133, 0.55), transparent 24%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  touch-action: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: env(safe-area-inset-top, 12px) 14px env(safe-area-inset-bottom, 12px);
+}
+
+.game-card {
+  width: min(100%, 1240px);
+  display: grid;
+  gap: 14px;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 4px 0;
+}
+
+.eyebrow {
+  margin: 0 0 2px;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.game-header h1 {
+  margin: 0;
+  font-family: "Marker Felt", "Hiragino Maru Gothic ProN", cursive;
+  font-size: clamp(2rem, 4vw, 3.7rem);
+  line-height: 0.95;
+  color: #5d2b0d;
+}
+
+.sound-toggle,
+.action-button,
+.control-button {
+  border: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sound-toggle {
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--button);
+  box-shadow: 0 10px 24px var(--button-shadow);
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hud-chip {
+  padding: 12px 14px;
+  border: 1px solid var(--hud-border);
+  background: var(--hud);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(114, 63, 22, 0.08);
+}
+
+.hud-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.canvas-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 22px 40px rgba(93, 43, 13, 0.22);
+  background: linear-gradient(180deg, #c9efff, #effcf8 60%, #ffecbb);
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(31, 21, 11, 0.18), rgba(31, 21, 11, 0.38));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-card {
+  width: min(100%, 540px);
+  padding: 28px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.45), transparent 50%),
+    rgba(255, 249, 237, 0.96);
+  border: 1px solid rgba(77, 40, 20, 0.12);
+  text-align: center;
+  box-shadow: 0 18px 36px rgba(49, 23, 8, 0.28);
+}
+
+.overlay-kicker {
+  margin: 0 0 4px;
+  color: var(--text-soft);
+}
+
+.overlay-card h2 {
+  margin: 0 0 12px;
+  font-family: "Marker Felt", "Hiragino Maru Gothic ProN", cursive;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.overlay-card p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.overlay-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 22px 0 14px;
+}
+
+.action-button {
+  min-width: 144px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  color: white;
+  box-shadow: 0 10px 22px rgba(214, 90, 32, 0.34);
+}
+
+.action-button.ghost {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  box-shadow: 0 10px 22px rgba(96, 55, 26, 0.14);
+}
+
+.overlay-note {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.touch-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.control-pad {
+  display: flex;
+  gap: 12px;
+}
+
+.move-pad {
+  justify-content: flex-start;
+}
+
+.action-pad {
+  justify-content: flex-end;
+}
+
+.control-button {
+  min-height: 68px;
+  min-width: 88px;
+  padding: 12px 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 20px rgba(84, 44, 15, 0.16);
+  touch-action: none;
+  user-select: none;
+}
+
+.control-button.jump {
+  background: rgba(255, 233, 184, 0.92);
+}
+
+.control-button.throw {
+  min-width: 140px;
+  background: rgba(255, 213, 178, 0.96);
+}
+
+.control-button.is-active,
+.sound-toggle[aria-pressed="true"] {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 8px 14px rgba(84, 44, 15, 0.18);
+}
+
+@media (max-width: 960px) {
+  .game-card {
+    gap: 10px;
+  }
+
+  .hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .touch-controls {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+    z-index: 20;
+  }
+
+  .canvas-frame {
+    margin-bottom: 98px;
+  }
+
+  .control-button {
+    min-height: 62px;
+    min-width: 72px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .game-header {
+    align-items: flex-start;
+  }
+
+  .sound-toggle {
+    padding: 10px 14px;
+  }
+
+  .overlay-card {
+    padding: 22px;
+  }
+
+  .overlay-actions {
+    flex-direction: column;
+  }
+}
